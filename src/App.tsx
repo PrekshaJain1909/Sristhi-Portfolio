@@ -11,6 +11,7 @@ import {
   Download,
   Heart,
   Mail,
+  Menu,
   MapPin,
   MessageCircle,
   Phone,
@@ -18,6 +19,7 @@ import {
   Sparkles,
   Target,
   Users,
+  X,
 } from 'lucide-react';
 
 const whatsappBase = 'https://wa.me/919911858070';
@@ -339,6 +341,7 @@ function App() {
   const [selectedBlogIndex, setSelectedBlogIndex] = useState<number | null>(null);
   const [expandedFaqId, setExpandedFaqId] = useState<number | null>(null);
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
 
   const selectedBlog = selectedBlogIndex !== null ? blogPosts[selectedBlogIndex] : null;
 
@@ -380,6 +383,17 @@ function App() {
     document.documentElement.setAttribute('data-theme', theme);
     window.localStorage.setItem('theme', theme);
   }, [theme]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768) {
+        setMobileNavOpen(false);
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const bookingMessage =
     'Hello Srishti, I would like to book a counselling session. Please share available time slots.';
@@ -427,7 +441,7 @@ function App() {
         <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-4 py-3 sm:px-5 md:px-8 md:py-4">
           <motion.a
               href="#booking"
-              className="cta-glow rounded-full bg-[var(--accent-blue)] px-3 py-2 text-xs font-semibold text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-[#6c87cb] sm:px-4 sm:text-sm"
+              className="cta-glow hidden whitespace-nowrap rounded-full bg-[var(--accent-blue)] px-3 py-2 text-xs font-semibold text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-[#6c87cb] md:inline-flex md:px-4 md:text-sm"
               whileTap={{ scale: 0.97 }}
             >
               Book a Session
@@ -451,22 +465,50 @@ function App() {
               <span aria-hidden="true">{theme === 'light' ? '🌙' : '🌞'}</span>
             </button>
             
+            <button
+              type="button"
+              className="nav-menu-btn md:hidden"
+              aria-label={mobileNavOpen ? 'Close menu' : 'Open menu'}
+              onClick={() => setMobileNavOpen((prev) => !prev)}
+            >
+              {mobileNavOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+            </button>
           </div>
         </div>
-        <div className="mx-auto flex w-full max-w-6xl gap-2 overflow-x-auto px-4 pb-3 text-sm text-slate-700 md:hidden sm:px-5">
-          <a className="rounded-full border border-[var(--border-soft)] bg-white px-3 py-1.5 whitespace-nowrap" href="#about">👤 About</a>
-          <a className="rounded-full border border-[var(--border-soft)] bg-white px-3 py-1.5 whitespace-nowrap" href="#experience">📚 Experience</a>
-          <a className="rounded-full border border-[var(--border-soft)] bg-white px-3 py-1.5 whitespace-nowrap" href="#services">💼 Services</a>
-          <a className="rounded-full border border-[var(--border-soft)] bg-white px-3 py-1.5 whitespace-nowrap" href="#blog">✍️ Blog</a>
-          <a className="rounded-full border border-[var(--border-soft)] bg-white px-3 py-1.5 whitespace-nowrap" href="#testimonials">⭐ Testimonials</a>
-          <a className="rounded-full border border-[var(--border-soft)] bg-white px-3 py-1.5 whitespace-nowrap" href="#resources">🎁 Resources</a>
-          <a className="rounded-full border border-[var(--border-soft)] bg-white px-3 py-1.5 whitespace-nowrap" href="#faq">❓ FAQ</a>
-          <a className="rounded-full border border-[var(--border-soft)] bg-white px-3 py-1.5 whitespace-nowrap" href="#contact">📞 Contact</a>
-        </div>
+        <AnimatePresence>
+          {mobileNavOpen ? (
+            <motion.div
+              className="mobile-nav-panel border-t border-[var(--border-soft)] px-4 pb-4 pt-2 md:hidden"
+              initial={{ opacity: 0, y: -12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.22, ease: 'easeInOut' }}
+            >
+              <div className="mx-auto grid max-w-6xl gap-2">
+                <a className="mobile-nav-link" href="#about" onClick={() => setMobileNavOpen(false)}>👤 About</a>
+                <a className="mobile-nav-link" href="#experience" onClick={() => setMobileNavOpen(false)}>📚 Experience</a>
+                <a className="mobile-nav-link" href="#services" onClick={() => setMobileNavOpen(false)}>💼 Services</a>
+                <a className="mobile-nav-link" href="#blog" onClick={() => setMobileNavOpen(false)}>✍️ Blog</a>
+                <a className="mobile-nav-link" href="#testimonials" onClick={() => setMobileNavOpen(false)}>⭐ Testimonials</a>
+                <a className="mobile-nav-link" href="#resources" onClick={() => setMobileNavOpen(false)}>🎁 Resources</a>
+                <a className="mobile-nav-link" href="#faq" onClick={() => setMobileNavOpen(false)}>❓ FAQ</a>
+                <a className="mobile-nav-link" href="#contact" onClick={() => setMobileNavOpen(false)}>📞 Contact</a>
+                <motion.a
+                  href="#booking"
+                  className="cta-glow mt-2 inline-flex items-center justify-center rounded-full bg-[var(--accent-blue)] px-4 py-2.5 text-sm font-semibold text-white"
+                  whileTap={{ scale: 0.97 }}
+                  onClick={() => setMobileNavOpen(false)}
+                >
+                  Book a Session
+                </motion.a>
+              </div>
+            </motion.div>
+          ) : null}
+        </AnimatePresence>
       </nav>
 
       <main>
-        <section id="home" className="section-wash section-wash-hero relative overflow-hidden px-4 pb-16 pt-44 sm:px-5 sm:pt-48 md:px-8 md:pb-20 md:pt-44">
+        <section id="home" className="section-wash section-wash-hero relative overflow-hidden px-4 pb-16 pt-48 sm:px-5 sm:pt-52 md:px-8 md:pb-20 md:pt-44">
           <div className="hero-shape hero-shape-a" />
           <div className="hero-shape hero-shape-b" />
           <motion.div
