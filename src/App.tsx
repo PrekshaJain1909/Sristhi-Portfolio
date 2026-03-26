@@ -21,6 +21,8 @@ import {
   Users,
   X,
 } from 'lucide-react';
+import demoProfilePhoto from './assets/srphoto.jpeg';
+import proBonoCertificate from './assets/Pro-bono session certificates (1).pdf';
 
 const whatsappBase = 'https://wa.me/919911858070';
 
@@ -128,6 +130,7 @@ const qualifications = [
   '📚 MA English (Language & Literature)',
   '📖 BA English (Hons) - Delhi University',
   '💡 Diploma in Guidance & Counselling - Jamia Millia Islamia',
+  '🧾 Certification in Adolescent Health and Counselling',
   '👶 Diploma in Elementary Education'
 ];
 
@@ -403,10 +406,6 @@ function App() {
   const emailBookingBody =
     'Hello Srishti,\n\nI would like to book a counselling session. Please share your available time slots.\n\nMode (online/in-person): \n\nThank you.';
 
-  const emailBookingLink = `mailto:${emailAddress}?subject=${encodeURIComponent(
-    'Session Booking Request'
-  )}&body=${encodeURIComponent(emailBookingBody)}`;
-
   const gmailComposeLink = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(
     emailAddress
   )}&su=${encodeURIComponent('Session Booking Request')}&body=${encodeURIComponent(emailBookingBody)}`;
@@ -450,6 +449,7 @@ function App() {
             <a className="nav-link" href="#about">👤 About</a>
             <a className="nav-link" href="#experience">📚 Experience</a>
             <a className="nav-link" href="#services">💼 Services</a>
+            <a className="nav-link" href="#testimonials">⭐ Testimonials</a>
             <a className="nav-link" href="#blog">✍️ Blog</a>
             <a className="nav-link" href="#resources">🎁 Resources</a>
             <a className="nav-link" href="#faq">❓ FAQ</a>
@@ -520,6 +520,13 @@ function App() {
             <div className="mx-auto mb-6 inline-flex max-w-full items-center gap-2 rounded-full border border-[var(--border-soft)] bg-white/80 px-3 py-2 text-xs text-slate-700 shadow-sm sm:px-4 sm:text-sm">
               <Shield className="h-4 w-4 text-[var(--accent-blue)]" />
               <span className="truncate">Safe, confidential, and non-judgmental support</span>
+            </div>
+            <div className="mx-auto mb-7 h-40 w-40 overflow-hidden rounded-[2rem] border-4 border-white/80 bg-white shadow-[0_16px_36px_rgba(60,80,130,0.18)] sm:h-48 sm:w-48">
+              <img
+                src={demoProfilePhoto}
+                alt="Demo profile placeholder"
+                className="h-full w-full object-cover"
+              />
             </div>
             <h1 className="hero-title font-serif text-4xl font-semibold leading-tight text-[var(--ink-strong)] sm:text-5xl md:text-7xl">
               Srishti Kaushik
@@ -598,59 +605,6 @@ function App() {
                 </ul>
               </motion.aside>
             </div>
-          </div>
-        </motion.section>
-
-        <motion.section
-          id="blog"
-          className="section-wash section-wash-blue px-4 py-14 sm:px-5 md:px-8 md:py-20"
-          variants={sectionReveal}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, amount: 0.15 }}
-        >
-          <div className="mx-auto max-w-6xl">
-            <div className="mb-10 text-center">
-              <h2 className="section-title"> Insights & Blog</h2>
-              <p className="mx-auto mt-3 max-w-2xl text-slate-600">
-                Gentle reflections and practical guidance on stress, emotional well-being, student life, and relationships.
-              </p>
-            </div>
-
-            <motion.div
-              className="stagger-grid grid gap-6 md:grid-cols-2 xl:grid-cols-3"
-              variants={staggerContainer}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true, amount: 0.1 }}
-            >
-              {blogPosts.map((post, index) => (
-                <motion.article
-                  key={post.title}
-                  variants={cardReveal}
-                  whileHover={{ scale: 1.03, y: -6 }}
-                  transition={{ duration: 0.3, ease: 'easeInOut' }}
-                  className={`soft-card hover-lift blog-card-${(index % 3) + 1}`}
-                >
-                  <div className="mb-3 flex flex-wrap gap-2">
-                    <span className="rounded-full bg-white/80 px-3 py-1 text-xs font-semibold text-slate-700">{post.category}</span>
-                    <span className="rounded-full bg-white/70 px-3 py-1 text-xs text-slate-600">{post.date}</span>
-                    <span className="rounded-full bg-white/70 px-3 py-1 text-xs text-slate-600">{post.readingTime}</span>
-                  </div>
-                  <h3 className="font-serif text-xl font-semibold text-[var(--ink-strong)]">{post.title}</h3>
-                  <p className="mt-3 text-sm leading-relaxed text-slate-700">{post.excerpt}</p>
-
-                  <motion.button
-                    type="button"
-                    className="cta-glow mt-5 inline-flex items-center justify-center rounded-full bg-[var(--accent-blue)] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#6c87cb]"
-                    whileTap={{ scale: 0.97 }}
-                    onClick={() => setSelectedBlogIndex(index)}
-                  >
-                    Read More
-                  </motion.button>
-                </motion.article>
-              ))}
-            </motion.div>
           </div>
         </motion.section>
 
@@ -746,6 +700,21 @@ function App() {
                     {item}
                   </span>
                 ))}
+              </div>
+              <div className="mt-6 rounded-2xl border border-[var(--border-soft)] bg-[var(--card-blue)] p-4">
+                <p className="font-semibold text-[var(--ink-strong)]">🧾 Pro Bono Psychological Support Certification</p>
+                <p className="mt-1 text-sm text-slate-700">
+                  Verified certification document available for viewing.
+                </p>
+                <a
+                  href={proBonoCertificate}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="cta-glow mt-3 inline-flex items-center gap-2 rounded-full bg-[var(--accent-blue)] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#6c87cb]"
+                >
+                  View Certificate
+                  <ChevronRight className="h-4 w-4" />
+                </a>
               </div>
             </article>
 
@@ -863,6 +832,59 @@ function App() {
                 ))}
               </div>
             </div>
+          </div>
+        </motion.section>
+
+        <motion.section
+          id="blog"
+          className="section-wash section-wash-blue px-4 py-14 sm:px-5 md:px-8 md:py-20"
+          variants={sectionReveal}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.15 }}
+        >
+          <div className="mx-auto max-w-6xl">
+            <div className="mb-10 text-center">
+              <h2 className="section-title"> Insights & Blog</h2>
+              <p className="mx-auto mt-3 max-w-2xl text-slate-600">
+                Gentle reflections and practical guidance on stress, emotional well-being, student life, and relationships.
+              </p>
+            </div>
+
+            <motion.div
+              className="stagger-grid grid gap-6 md:grid-cols-2 xl:grid-cols-3"
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, amount: 0.1 }}
+            >
+              {blogPosts.map((post, index) => (
+                <motion.article
+                  key={post.title}
+                  variants={cardReveal}
+                  whileHover={{ scale: 1.03, y: -6 }}
+                  transition={{ duration: 0.3, ease: 'easeInOut' }}
+                  className={`soft-card hover-lift blog-card-${(index % 3) + 1}`}
+                >
+                  <div className="mb-3 flex flex-wrap gap-2">
+                    <span className="rounded-full bg-white/80 px-3 py-1 text-xs font-semibold text-slate-700">{post.category}</span>
+                    <span className="rounded-full bg-white/70 px-3 py-1 text-xs text-slate-600">{post.date}</span>
+                    <span className="rounded-full bg-white/70 px-3 py-1 text-xs text-slate-600">{post.readingTime}</span>
+                  </div>
+                  <h3 className="font-serif text-xl font-semibold text-[var(--ink-strong)]">{post.title}</h3>
+                  <p className="mt-3 text-sm leading-relaxed text-slate-700">{post.excerpt}</p>
+
+                  <motion.button
+                    type="button"
+                    className="cta-glow mt-5 inline-flex items-center justify-center rounded-full bg-[var(--accent-blue)] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#6c87cb]"
+                    whileTap={{ scale: 0.97 }}
+                    onClick={() => setSelectedBlogIndex(index)}
+                  >
+                    Read More
+                  </motion.button>
+                </motion.article>
+              ))}
+            </motion.div>
           </div>
         </motion.section>
 
