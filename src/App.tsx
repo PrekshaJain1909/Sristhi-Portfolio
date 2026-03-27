@@ -761,6 +761,9 @@ function App() {
             <article className="soft-card hover-lift fade-up">
               <h2 className="section-title text-left">🏆 Achievements</h2>
               <div className="mt-5 grid gap-3">
+                <div className="rounded-2xl bg-[var(--card-blue)] p-4">
+                  <p className="font-semibold text-[var(--ink-strong)]">NCAHP Registered- 99-2452-6388-8128</p>
+                </div>
                 <div className="rounded-2xl bg-[var(--card-beige)] p-4">
                   <p className="font-semibold text-[var(--ink-strong)]">Top 20 rank holder in academics</p>
                 </div>
